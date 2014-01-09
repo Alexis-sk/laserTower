@@ -29,8 +29,12 @@ First int :
 Servo laserservo;
 Servo dirservo;
 
+const int enablePin = 7; 
+int laserstatut = 0;
+
+
 int dirAngle = 0; // Direction servo actual angle
-int initAngle = 85; //Direction init angle
+int initAngle = 90; //Direction init angle
 int minAngle = 0;
 int maxAngle = 170;
 int newAngle = 0;
@@ -39,17 +43,22 @@ int incAngle = 5;
 int inputdata = 0;
 int inputcmd = 0;
 
+
+
 void setup(){
  
   Serial.begin(9600); 
     
-  dirServo.attach(10); 
-  dirServo.write(initAngle);
+  dirservo.attach(10); 
+  dirservo.write(initAngle);
+   // min=5 ; max=180; inc=?
   dirAngle = initAngle;
   
   laserservo.attach(9);
   laserservo.write(initAngle);
-  
+  // min=0 ; max=20; inc=1
+
+   digitalWrite(enablePin, LOW);
 
   //Serial.println("Start");
 }
@@ -66,37 +75,10 @@ void loop(){
   
      switch (inputcmd) {   
            case 1: // motor speed input
-               switch (inputdata) {
-                 case 1: //motor speed up
-                     if (motorSpeed == 0 ) {
-                       motorSpeed = initMotorSpeed;
-                     }
-                     else {
-                       newSpeed = motorSpeed + incSpeed; 
-                       if (newSpeed < maxSpeed)  {
-                         motorSpeed = newSpeed;
-                       }
-                       else {
-                       }
-                     }
-                     break;
-                  case 2: //motor speed down
-                      newSpeed = motorSpeed - incSpeed;
-                      if (newSpeed > lowSpeed) {
-                         motorSpeed = newSpeed;
-                      }
-                      else {
-                          motorSpeed = lowSpeed;
-                      }
-                      break;
-                   default:
-                     motorSpeed = 0;
-                     break;                 
-                  }
-                  //Serial.println(motorSpeed);
+                laserservo.write(inputdata);                  
                   break;
            case 2: // motor direction input 
-                motorDirection = inputdata;
+                dirservo.write(inputdata);
                 break;
            case 3: // Direction servo angle
                 switch (inputdata) {
@@ -123,9 +105,13 @@ void loop(){
                     break;            
                 }             
                 
-                DirServo.write(dirAngle);
+                dirservo.write(dirAngle);
                 delay(15);
                 
+                break;
+                
+               case 4:
+                   laserstatut = inputdata;
                 break;
            default:
                 Serial.print("invalid command: ");
@@ -137,7 +123,12 @@ void loop(){
         }//end switch  
    }//end Serial
 
-
+if (laserstatut == 1) {  
+  digitalWrite(enablePin, HIGH);
+  }
+  else {
+  digitalWrite(enablePin, LOW);  
+  }
   
 }
 
