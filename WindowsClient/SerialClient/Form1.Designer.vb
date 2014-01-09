@@ -41,7 +41,7 @@ Partial Class Form1
         '
         'btRight
         '
-        Me.btRight.Location = New System.Drawing.Point(464, 97)
+        Me.btRight.Location = New System.Drawing.Point(446, 97)
         Me.btRight.Name = "btRight"
         Me.btRight.Size = New System.Drawing.Size(75, 23)
         Me.btRight.TabIndex = 6
@@ -59,7 +59,7 @@ Partial Class Form1
         '
         'TextBox1
         '
-        Me.TextBox1.Location = New System.Drawing.Point(76, 216)
+        Me.TextBox1.Location = New System.Drawing.Point(70, 227)
         Me.TextBox1.Name = "TextBox1"
         Me.TextBox1.Size = New System.Drawing.Size(409, 20)
         Me.TextBox1.TabIndex = 8
