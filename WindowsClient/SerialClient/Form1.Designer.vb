@@ -30,17 +30,19 @@ Partial Class Form1
         Me.btUp = New System.Windows.Forms.Button()
         Me.btDown = New System.Windows.Forms.Button()
         Me.btRstLsrPos = New System.Windows.Forms.Button()
-        Me.btDirAn = New System.Windows.Forms.Button()
-        Me.btlsran = New System.Windows.Forms.Button()
-        Me.txtdir = New System.Windows.Forms.TextBox()
-        Me.txtlsr = New System.Windows.Forms.TextBox()
         Me.GroupBox1 = New System.Windows.Forms.GroupBox()
+        Me.nuplsr = New System.Windows.Forms.NumericUpDown()
+        Me.nupdir = New System.Windows.Forms.NumericUpDown()
         Me.Label2 = New System.Windows.Forms.Label()
         Me.Label1 = New System.Windows.Forms.Label()
         Me.btshoot = New System.Windows.Forms.Button()
         Me.Label3 = New System.Windows.Forms.Label()
         Me.txtresult = New System.Windows.Forms.TextBox()
+        Me.bttest = New System.Windows.Forms.Button()
+        Me.txttest = New System.Windows.Forms.TextBox()
         Me.GroupBox1.SuspendLayout()
+        CType(Me.nuplsr, System.ComponentModel.ISupportInitialize).BeginInit()
+        CType(Me.nupdir, System.ComponentModel.ISupportInitialize).BeginInit()
         Me.SuspendLayout()
         '
         'btLeft
@@ -97,52 +99,32 @@ Partial Class Form1
         Me.btRstLsrPos.Text = "Reset Laser Pos"
         Me.btRstLsrPos.UseVisualStyleBackColor = True
         '
-        'btDirAn
-        '
-        Me.btDirAn.Location = New System.Drawing.Point(192, 35)
-        Me.btDirAn.Name = "btDirAn"
-        Me.btDirAn.Size = New System.Drawing.Size(75, 23)
-        Me.btDirAn.TabIndex = 12
-        Me.btDirAn.Text = "Go"
-        Me.btDirAn.UseVisualStyleBackColor = True
-        '
-        'btlsran
-        '
-        Me.btlsran.Location = New System.Drawing.Point(192, 75)
-        Me.btlsran.Name = "btlsran"
-        Me.btlsran.Size = New System.Drawing.Size(75, 23)
-        Me.btlsran.TabIndex = 13
-        Me.btlsran.Text = "Go"
-        Me.btlsran.UseVisualStyleBackColor = True
-        '
-        'txtdir
-        '
-        Me.txtdir.Location = New System.Drawing.Point(86, 37)
-        Me.txtdir.Name = "txtdir"
-        Me.txtdir.Size = New System.Drawing.Size(100, 20)
-        Me.txtdir.TabIndex = 14
-        '
-        'txtlsr
-        '
-        Me.txtlsr.Location = New System.Drawing.Point(86, 77)
-        Me.txtlsr.Name = "txtlsr"
-        Me.txtlsr.Size = New System.Drawing.Size(100, 20)
-        Me.txtlsr.TabIndex = 15
-        '
         'GroupBox1
         '
+        Me.GroupBox1.Controls.Add(Me.nuplsr)
+        Me.GroupBox1.Controls.Add(Me.nupdir)
         Me.GroupBox1.Controls.Add(Me.Label2)
         Me.GroupBox1.Controls.Add(Me.Label1)
-        Me.GroupBox1.Controls.Add(Me.txtlsr)
-        Me.GroupBox1.Controls.Add(Me.btDirAn)
-        Me.GroupBox1.Controls.Add(Me.txtdir)
-        Me.GroupBox1.Controls.Add(Me.btlsran)
         Me.GroupBox1.Location = New System.Drawing.Point(23, 277)
         Me.GroupBox1.Name = "GroupBox1"
-        Me.GroupBox1.Size = New System.Drawing.Size(293, 124)
+        Me.GroupBox1.Size = New System.Drawing.Size(232, 124)
         Me.GroupBox1.TabIndex = 16
         Me.GroupBox1.TabStop = False
         Me.GroupBox1.Text = "Debug / test"
+        '
+        'nuplsr
+        '
+        Me.nuplsr.Location = New System.Drawing.Point(90, 81)
+        Me.nuplsr.Name = "nuplsr"
+        Me.nuplsr.Size = New System.Drawing.Size(120, 20)
+        Me.nuplsr.TabIndex = 21
+        '
+        'nupdir
+        '
+        Me.nupdir.Location = New System.Drawing.Point(90, 42)
+        Me.nupdir.Name = "nupdir"
+        Me.nupdir.Size = New System.Drawing.Size(120, 20)
+        Me.nupdir.TabIndex = 20
         '
         'Label2
         '
@@ -187,11 +169,29 @@ Partial Class Form1
         Me.txtresult.Size = New System.Drawing.Size(91, 20)
         Me.txtresult.TabIndex = 19
         '
+        'bttest
+        '
+        Me.bttest.Location = New System.Drawing.Point(443, 203)
+        Me.bttest.Name = "bttest"
+        Me.bttest.Size = New System.Drawing.Size(75, 23)
+        Me.bttest.TabIndex = 20
+        Me.bttest.Text = "&Test"
+        Me.bttest.UseVisualStyleBackColor = True
+        '
+        'txttest
+        '
+        Me.txttest.Location = New System.Drawing.Point(443, 233)
+        Me.txttest.Name = "txttest"
+        Me.txttest.Size = New System.Drawing.Size(75, 20)
+        Me.txttest.TabIndex = 21
+        '
         'Form1
         '
         Me.AutoScaleDimensions = New System.Drawing.SizeF(6.0!, 13.0!)
         Me.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font
-        Me.ClientSize = New System.Drawing.Size(588, 428)
+        Me.ClientSize = New System.Drawing.Size(569, 428)
+        Me.Controls.Add(Me.txttest)
+        Me.Controls.Add(Me.bttest)
         Me.Controls.Add(Me.txtresult)
         Me.Controls.Add(Me.Label3)
         Me.Controls.Add(Me.btshoot)
@@ -206,6 +206,8 @@ Partial Class Form1
         Me.Text = "Form1"
         Me.GroupBox1.ResumeLayout(False)
         Me.GroupBox1.PerformLayout()
+        CType(Me.nuplsr, System.ComponentModel.ISupportInitialize).EndInit()
+        CType(Me.nupdir, System.ComponentModel.ISupportInitialize).EndInit()
         Me.ResumeLayout(False)
         Me.PerformLayout()
 
@@ -217,15 +219,15 @@ Partial Class Form1
     Friend WithEvents btUp As System.Windows.Forms.Button
     Friend WithEvents btDown As System.Windows.Forms.Button
     Friend WithEvents btRstLsrPos As System.Windows.Forms.Button
-    Friend WithEvents btDirAn As System.Windows.Forms.Button
-    Friend WithEvents btlsran As System.Windows.Forms.Button
-    Friend WithEvents txtdir As System.Windows.Forms.TextBox
-    Friend WithEvents txtlsr As System.Windows.Forms.TextBox
     Friend WithEvents GroupBox1 As System.Windows.Forms.GroupBox
     Friend WithEvents Label2 As System.Windows.Forms.Label
     Friend WithEvents Label1 As System.Windows.Forms.Label
     Friend WithEvents btshoot As System.Windows.Forms.Button
     Friend WithEvents Label3 As System.Windows.Forms.Label
     Friend WithEvents txtresult As System.Windows.Forms.TextBox
+    Friend WithEvents nupdir As System.Windows.Forms.NumericUpDown
+    Friend WithEvents nuplsr As System.Windows.Forms.NumericUpDown
+    Friend WithEvents bttest As System.Windows.Forms.Button
+    Friend WithEvents txttest As System.Windows.Forms.TextBox
 
 End Class
