@@ -28,7 +28,7 @@ First int :
 #include <Servo.h>
 
 
-const int laserPin = 12; 
+//const int laserPin = 7; 
 int laserstatut = 0;
 
 Servo dirservo;     // min=5 ; max=180; inc=?
@@ -37,7 +37,7 @@ int dirinitAngle = 90; //Direction init angle
 int dirminAngle = 5;
 int dirmaxAngle = 180;
 int dirnewAngle = 0;
-int dirincAngle = 2;
+int dirincAngle = 1;
 
 Servo laserservo;    // min=0 ; max=20; inc=1
 int lsrinitAngle = 5; //laser servo init angle
@@ -64,8 +64,9 @@ void setup(){
   laserservo.attach(9);
   laserservo.write(lsrinitAngle);
   lsrAngle = lsrinitAngle;
-
-  digitalWrite(laserPin, LOW);
+  
+  pinMode(7,OUTPUT);
+  digitalWrite(7, LOW);
 
   //Serial.println("Start");
 }
@@ -75,75 +76,68 @@ void loop(){
 // Serial input data  
  if (Serial.available() > 0) {
     inputcmd = Serial.parseInt();
-    inputdata = Serial.parseInt();
-                
+                    
      switch (inputcmd) {   
-           case 1: // laser servo angle
-                laserservo.write(inputdata);                  
-                  break;
-                  
-           case 2: // direction servo angle
-                dirservo.write(inputdata);
-                break;
+       
+           case 30:
+                dirAngle = dirinitAngle;
+                break;   
                 
-           case 3: // Direction servo angle
-                switch (inputdata) {
-                    case 1:
-                      dirnewAngle = dirAngle + dirincAngle;
-                      if (dirnewAngle < dirmaxAngle) {
-                          dirAngle = dirnewAngle;
-                      }
-                      else {
-                          Serial.println("error");
-                      }
-                      break;
-                    case 2:
-                      dirnewAngle = dirAngle - dirincAngle;
-                      if (dirnewAngle > dirminAngle) {
-                          dirAngle = dirnewAngle;
-                      }
-                      else {
-                          Serial.println("error");
-                      }
-                      break;
-                    default:
-                    dirAngle = dirinitAngle;
-                    break;            
-                }              
-                dirservo.write(dirAngle);
-                //delay(15);
+           case 31: // Direction servo angle
+                dirnewAngle = dirAngle + dirincAngle;
+                if (dirnewAngle < dirmaxAngle) {
+                    dirAngle = dirnewAngle;
+                }
+                else {
+                    Serial.println("error");
+                }
                 break;
-                
-               case 4:      //lase servo angle
-                 switch (inputdata) {
-                    case 1: 
-                      lsrnewAngle = lsrAngle + lsrincAngle;
-                      if (lsrnewAngle < lsrmaxAngle) {
-                          lsrAngle = lsrnewAngle;
-                      }
-                      else {
-                          Serial.println("error");
-                      }
-                      break;
-                    case 2:
-                      lsrnewAngle = lsrAngle - lsrincAngle;
-                      if (lsrnewAngle > lsrminAngle) {
-                          lsrAngle = lsrnewAngle;
-                      }
-                      else {
-                          Serial.println("error");
-                      }
-                      break;
-                    default:
-                    lsrAngle = lsrinitAngle;
-                    break;            
-                  }             
-               laserservo.write(lsrAngle);
-               //delay(15);                        
-               break;
-               
-               case 5: // laser control
-                   laserstatut = inputdata;
+                      
+            case 32:
+                dirnewAngle = dirAngle - dirincAngle;
+                if (dirnewAngle > dirminAngle) {
+                    dirAngle = dirnewAngle;
+                 }
+                 else {
+                     Serial.println("error");
+                 }
+                 break;
+                 
+             case 40:
+                 lsrAngle = lsrinitAngle;
+                 break;   
+                    
+             case 41:      //lase servo angle
+                 lsrnewAngle = lsrAngle + lsrincAngle;
+                 if (lsrnewAngle < lsrmaxAngle) {
+                    lsrAngle = lsrnewAngle;
+                 }
+                 else {
+                    Serial.println("error");
+                 }
+                 break;
+  
+              case 42:
+                 lsrnewAngle = lsrAngle - lsrincAngle;
+                 if (lsrnewAngle > lsrminAngle) {
+                     lsrAngle = lsrnewAngle;
+                 }
+                 else {
+                     Serial.println("error");
+                 }
+                 break;
+              
+               case 50: // laser control
+                   laserstatut = 0;
+               break; 
+              
+               case 51: // laser control
+                   if (laserstatut == 1) {
+                       laserstatut = 0;
+                   }
+                   else {
+                       laserstatut = 1;
+                   }
                break; 
                
            default:
@@ -152,15 +146,18 @@ void loop(){
                 Serial.print(inputcmd);
                 Serial.print("  inputdata=");
                 Serial.print(inputdata);
-                break; 
+              break; 
         }//end switch  
    }//end Serial
 
+dirservo.write(dirAngle);
+laserservo.write(lsrAngle);
+
 if (laserstatut == 1) {  
-  digitalWrite(laserPin, HIGH);
+  digitalWrite(7, HIGH);
   }
   else {
-  digitalWrite(laserPin, LOW);  
+  digitalWrite(7, LOW);  
   }
   
 }
